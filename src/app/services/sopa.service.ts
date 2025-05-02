@@ -1,7 +1,32 @@
 import { Injectable, signal } from '@angular/core';
 import { Posicion } from '../interface/position.interface';
+import { listGrande } from '../interface/palabras';
 
-
+// const listaGrande = [
+//   'COCHE', 'PERRO', 'GATO', 'CASA', 'ARBOL', 'FLOR', 'LUNA', 'SOL', 'AGUA', 'FUEGO',
+//   'TIERRA', 'AIRE', 'NUBE', 'LLUVIA', 'VIENTO', 'TRUENO', 'RAYO', 'MAR', 'OLAS', 'RÍO',
+//   'MONTAÑA', 'VALLE', 'BOSQUE', 'CAMPO', 'PRADO', 'CIUDAD', 'PUEBLO', 'CALLE', 'AVENIDA', 'CARRETERA',
+//   'PUENTE', 'TÚNEL', 'CAMIÓN', 'TREN', 'AVIÓN', 'BARCO', 'BICICLETA', 'MOTO', 'HELICE', 'RODAJE',
+//   'RUEDA', 'MOTOR', 'TUBO', 'ESCAPE', 'ACEITE', 'BATERÍA', 'FRENO', 'EMBRAGUE', 'VOLANTE', 'ASIENTO',
+//   'CINTURÓN', 'ESPEJO', 'RETROVISOR', 'FARO', 'NEUMÁTICO', 'PARACHOQUES', 'CAPÓ', 'MALETERO', 'PUERTA', 'VENTANA',
+//   'CRISTAL', 'LUNETA', 'LIMPIAPARABRISAS', 'RADIO', 'GPS', 'CLAXON', 'ANTENA', 'AIRBAG', 'TABLERO', 'CUADRO',
+//   'RELOJ', 'CUENTA', 'KILÓMETROS', 'VELOCIDAD', 'COMBUSTIBLE', 'GASOLINA', 'DIÉSEL', 'HÍBRIDO', 'ELÉCTRICO', 'RECARGA',
+//   'ENCHUFE', 'CABLE', 'BATERÍA', 'ENERGÍA', 'POTENCIA', 'AUTONOMÍA', 'TIEMPO', 'VEHÍCULO', 'TRANSPORTE', 'MOVILIDAD',
+//   'ROBOT', 'ORDENADOR', 'PANTALLA', 'TECLADO', 'RATÓN', 'ALTAVOZ', 'MICRÓFONO', 'CÁMARA', 'RED', 'CABLEADO',
+//   'INTERNET', 'WIFI', 'BLUETOOTH', 'SERVIDOR', 'CLIENTE', 'SOFTWARE', 'HARDWARE', 'PROGRAMA', 'SISTEMA', 'FICHERO',
+//   'DOCUMENTO', 'ARCHIVO', 'CARPETA', 'IMAGEN', 'VÍDEO', 'MÚSICA', 'SONIDO', 'TEXTO', 'CÓDIGO', 'LENGUAJE',
+//   'PYTHON', 'JAVA', 'JAVASCRIPT', 'HTML', 'CSS', 'SQL', 'RUBY', 'PHP',
+//   'NODE', 'ANGULAR', 'REACT', 'VUE', 'SPRING', 'DJANGO', 'FLASK', 'LARAVEL', 'EXPRESS', 'NET',
+//   'BASE', 'DATOS', 'MYSQL', 'POSTGRES', 'MONGODB', 'ORACLE', 'FIREBASE', 'JSON', 'XML', 'CSV',
+//   'EXCEL', 'WORD', 'POWERPOINT', 'GOOGLE', 'CHROME', 'FIREFOX', 'SAFARI', 'EDGE', 'WINDOWS', 'LINUX',
+//   'UBUNTU', 'DEBIAN', 'FEDORA', 'REDHAT', 'ANDROID', 'IOS', 'TABLET', 'MÓVIL', 'SMARTPHONE', 'TELEVISIÓN',
+//   'RADIO', 'ANTENA', 'SEÑAL', 'SATÉLITE', 'ESPACIO', 'PLANETA', 'ESTRELLA', 'GALAXIA', 'ASTEROIDE', 'COMETA',
+//   'TIEMPO', 'CLIMA', 'TEMPERATURA', 'HUMEDAD', 'PRESIÓN', 'VIENTO', 'TORMENTA', 'HURACÁN', 'TORNADO', 'NEVADA',
+//   'GRANIZO', 'ESCARCHA', 'HIELO', 'NIEVE', 'CALOR', 'FRÍO', 'PRIMAVERA', 'VERANO', 'OTOÑO', 'INVIERNO',
+//   'ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO', 'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE',
+//   'NOVIEMBRE', 'DICIEMBRE', 'DÍA', 'SEMANA', 'MES', 'AÑO', 'SIGLO', 'MILENIO', 'SEGUNDO', 'MINUTO',
+//   'HORA', 'RELOJ', 'CALENDARIO', 'TIEMPO', 'PASADO', 'PRESENTE', 'FUTURO', 'MAÑANA', 'TARDE', 'NOCHE',
+//   'MADRUGADA', 'ALBA', 'OCASO', 'LUZ', 'SOMBRA', 'OSCURA', 'BRILLO', 'REFLEJO', 'CRISTALINO', 'OPACO', ];
 
 @Injectable({ providedIn: 'root' })
 export class SopaService {
@@ -11,8 +36,10 @@ export class SopaService {
     Array<string>(this.tam).fill('')
   );
 
+  inicio = Math.random() * listGrande.length;
   // listaPalabras = [ 'COCHE'];
-  listaPalabras = [ 'COCHE', 'PERRO'];
+  // listaPalabras = listaGrande.slice(this.inicio, this.inicio + 10 );
+  listaPalabras = listGrande.slice(this.inicio, this.inicio + 10 );
   listaBlocked: string[] = [];
 
   terminado = signal(false);
