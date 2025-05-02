@@ -4,7 +4,6 @@
   <p class="text-lg">Encuentra las palabras escondidas en la sopa de letras</p>
 </div>
 
-
 <div class="flex flex-col items-center justify-center">
 
   <app-sopa-letras [sopa]="sopa"/>
@@ -14,9 +13,10 @@
 
 
     @for(item of sopaService.listaPalabras; track $index) {
-      <span class="text-lg">{{item}}</span>
+      <span class="text-lg" [class.text-success]="sopaService.listaBlocked.includes(item)">{{item}}</span>
     }
 
   </div>
 
 </div>
+

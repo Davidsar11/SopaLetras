@@ -25,20 +25,20 @@ export class SopaLetrasComponent {
     let removed = false;
 
 
-    if(!this.isBlocked(row,col)){
-      this.activo.forEach( pos => {
-        if(pos.row == row && pos.col == col){
-          this.activo.splice(this.activo.indexOf(pos), 1);
+    if(!this.isBlocked(row,col)){ // si la posición no esta bloqueada (ya se ha acertad antes)
+      this.activo.forEach( pos => { // para cada activo
+        if(pos.row == row && pos.col == col){ // compruebo si es la Posicion en la que me encuentro
+          this.activo.splice(this.activo.indexOf(pos), 1); // si es así, lo elimno de activos
           removed = true;
         }
       });
 
-      if(!removed)
-        this.activo.push(aux);
+      if(!removed) // si no lo he eliminado
+        this.activo.push(aux); // lo añado a activo
 
-      this.isCorrect();
+      this.isCorrect(); // y compruebo si está activo
 
-      
+
     }
 
 
@@ -50,9 +50,9 @@ export class SopaLetrasComponent {
     let aux = false;
 
 
-    this.activo.forEach( pos => {
-      if(pos.row == row && pos.col == col ){
-        aux = true;
+    this.activo.forEach( pos => {// para cada activo
+      if(pos.row == row && pos.col == col){ // compruebo si es la Posicion en la que me encuentro
+        aux = true; // si es así lo marco a true
       }
 
     });
@@ -62,9 +62,9 @@ export class SopaLetrasComponent {
   isBlocked(row : number, col: number){
     let aux = false;
 
-    this.blocked.forEach( pos => {
-      if(pos.row == row && pos.col == col){
-        aux = true;
+    this.blocked.forEach( pos => {// para cada activo
+      if(pos.row == row && pos.col == col){ // compruebo si es la Posicion en la que me encuentro
+        aux = true; // si es así lo marco a true
       }
 
     });
@@ -74,10 +74,10 @@ export class SopaLetrasComponent {
 
 
   isCorrect(){
-    console.log(this.blocked)
-    if(this.sopaService.validarPalabra(this.activo)){
-      this.blocked.push(... this.activo);
-      this.activo = [];
+
+    if(this.sopaService.validarPalabra(this.activo)){ // si es valida
+      this.blocked.push(... this.activo); // meto las posiciones activas en bloqued
+      this.activo = []; // inicializo de nuevo activo
     }
   }
 

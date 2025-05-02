@@ -13,6 +13,10 @@ export const routes: Routes = [
     loadComponent: ()  => import('./pages/sopa-letras-page/sopa-letras-page.component'),
   },
   {
+    path: 'congrats',
+    loadComponent: ()  => import('./pages/congrats-page/congrats-page.component'),
+  },
+  {
     path: '**',
     redirectTo: 'home'
   }
