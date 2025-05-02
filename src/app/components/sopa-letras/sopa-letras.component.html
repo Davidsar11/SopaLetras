@@ -1,0 +1,26 @@
+
+
+<div class="flex  m-4 ">
+
+
+  <div class="grid grid-cols-20 gap-1 p-4 bg-white shadow-xl rounded-2xl border border-gray-200">
+
+
+
+    @for (item of sopa(); track $index; let i = $index) {
+
+      @for(letra of item; track $index ; let j = $index){
+
+        <button class="btn" [class.btn-secondary] = "isSelected(i,j)" [class.btn-success] = "isBlocked(i,j)"   (click)="addLetra(i,j)">{{letra}}</button>
+      }
+
+
+    }
+
+  </div>
+
+
+
+
+
+</div>
