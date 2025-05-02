@@ -20,6 +20,18 @@
   </div>
 
 
+  <div class="m-6 text-center  text-sm italic text-center flex flex-col ">
+
+    <span class="text-2xl"> Palabras: </span>
+
+
+    @for(item of sopaService.listaPalabras; track $index) {
+      <span class="text-lg" [class.text-success]="sopaService.listaBlocked.includes(item)">{{item}}</span>
+    }
+
+  </div>
+
+
 
 
 

@@ -18,7 +18,6 @@ export default class SopaLetrasPageComponent {
   redirigir = effect( ()  => {
     if(this.sopaService.terminado()) { // si he terminado
       this.router.navigate(['/congrats']); // redirijo al cogratulations
-      this.sopaService.terminado.set(false); // lo marco a false para poder volver a empezar
     }
   })
 
