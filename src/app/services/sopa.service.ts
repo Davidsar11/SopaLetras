@@ -57,15 +57,20 @@ export class SopaService {
         if (
           dir === 'H' &&
           col + word.length <= this.tam // si es horizontal y cabe
+          && !this.isOccuped(  row,col,word.length, 'H') //  y no está ocupado ya
         ) {
+          console.log('H -->' ,word, ' | ',row ,  ' | ', col, ' | ', );
           for (let i = 0; i < word.length; i++) {
             this.sopa[row][col + i] = word[i].toUpperCase(); // la meto en las posciones
           }
           placed = true; // y marco que ya se ha puesto
         } else if (
-          dir === 'V' &&
-          row + word.length <= this.tam
+          dir === 'V' && // palabra vertical
+          row + word.length <= this.tam // no se sale de el tamaño
+          && !this.isOccuped( row,col,word.length, 'V') // y no está ocupado ya
+
         ) {
+          console.log('V -->' , word, ' | ',row ,  ' | ', col, ' | ', );
           for (let i = 0; i < word.length; i++) {
             this.sopa[row + i][col] = word[i].toUpperCase();
           }
@@ -89,24 +94,26 @@ export class SopaService {
     return this.sopa;
   }
 
-  // private isOccuped(
-  //   row: number,
-  //   col: number,
-  //   tamPalabra: number,
-  //   dir: 'H' | 'V'
-  // ): boolean {
-  //   if (dir === 'H') {
-  //     for (let i = col; i < tamPalabra && i < this.tam; i++) {
-  //       if (this.sopa[row][i]) return true;
-  //     }
-  //   } else {
-  //     for (let i = row; i < tamPalabra && i < this.tam; i++) {
-  //       if (this.sopa[i][col]) return true;
-  //     }
-  //   }
+  private isOccuped(
+    row: number,
+    col: number,
+    tamPalabra: number,
+    dir: 'H' | 'V'
+  ): boolean {
+    if (dir === 'H') {
+      for (let i = col; i < col + tamPalabra ; i++) {
+        if (this.sopa[row][i]) return true;
 
-  //   return false;
-  // }
+      }
+    } else {
+      for (let i = row; i < row + tamPalabra; i++) {
+        if (this.sopa[i][col]) return true;
+
+      }
+    }
+
+    return false;
+  }
 
   validarPalabra(activo: Posicion[]): boolean {
 
@@ -126,4 +133,5 @@ export class SopaService {
 
     return false;
   }
+
 }
