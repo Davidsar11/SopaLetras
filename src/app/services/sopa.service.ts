@@ -2,56 +2,48 @@ import { Injectable, signal } from '@angular/core';
 import { Posicion } from '../interface/position.interface';
 import { listGrande } from '../interface/palabras';
 
-// const listaGrande = [
-//   'COCHE', 'PERRO', 'GATO', 'CASA', 'ARBOL', 'FLOR', 'LUNA', 'SOL', 'AGUA', 'FUEGO',
-//   'TIERRA', 'AIRE', 'NUBE', 'LLUVIA', 'VIENTO', 'TRUENO', 'RAYO', 'MAR', 'OLAS', 'RÍO',
-//   'MONTAÑA', 'VALLE', 'BOSQUE', 'CAMPO', 'PRADO', 'CIUDAD', 'PUEBLO', 'CALLE', 'AVENIDA', 'CARRETERA',
-//   'PUENTE', 'TÚNEL', 'CAMIÓN', 'TREN', 'AVIÓN', 'BARCO', 'BICICLETA', 'MOTO', 'HELICE', 'RODAJE',
-//   'RUEDA', 'MOTOR', 'TUBO', 'ESCAPE', 'ACEITE', 'BATERÍA', 'FRENO', 'EMBRAGUE', 'VOLANTE', 'ASIENTO',
-//   'CINTURÓN', 'ESPEJO', 'RETROVISOR', 'FARO', 'NEUMÁTICO', 'PARACHOQUES', 'CAPÓ', 'MALETERO', 'PUERTA', 'VENTANA',
-//   'CRISTAL', 'LUNETA', 'LIMPIAPARABRISAS', 'RADIO', 'GPS', 'CLAXON', 'ANTENA', 'AIRBAG', 'TABLERO', 'CUADRO',
-//   'RELOJ', 'CUENTA', 'KILÓMETROS', 'VELOCIDAD', 'COMBUSTIBLE', 'GASOLINA', 'DIÉSEL', 'HÍBRIDO', 'ELÉCTRICO', 'RECARGA',
-//   'ENCHUFE', 'CABLE', 'BATERÍA', 'ENERGÍA', 'POTENCIA', 'AUTONOMÍA', 'TIEMPO', 'VEHÍCULO', 'TRANSPORTE', 'MOVILIDAD',
-//   'ROBOT', 'ORDENADOR', 'PANTALLA', 'TECLADO', 'RATÓN', 'ALTAVOZ', 'MICRÓFONO', 'CÁMARA', 'RED', 'CABLEADO',
-//   'INTERNET', 'WIFI', 'BLUETOOTH', 'SERVIDOR', 'CLIENTE', 'SOFTWARE', 'HARDWARE', 'PROGRAMA', 'SISTEMA', 'FICHERO',
-//   'DOCUMENTO', 'ARCHIVO', 'CARPETA', 'IMAGEN', 'VÍDEO', 'MÚSICA', 'SONIDO', 'TEXTO', 'CÓDIGO', 'LENGUAJE',
-//   'PYTHON', 'JAVA', 'JAVASCRIPT', 'HTML', 'CSS', 'SQL', 'RUBY', 'PHP',
-//   'NODE', 'ANGULAR', 'REACT', 'VUE', 'SPRING', 'DJANGO', 'FLASK', 'LARAVEL', 'EXPRESS', 'NET',
-//   'BASE', 'DATOS', 'MYSQL', 'POSTGRES', 'MONGODB', 'ORACLE', 'FIREBASE', 'JSON', 'XML', 'CSV',
-//   'EXCEL', 'WORD', 'POWERPOINT', 'GOOGLE', 'CHROME', 'FIREFOX', 'SAFARI', 'EDGE', 'WINDOWS', 'LINUX',
-//   'UBUNTU', 'DEBIAN', 'FEDORA', 'REDHAT', 'ANDROID', 'IOS', 'TABLET', 'MÓVIL', 'SMARTPHONE', 'TELEVISIÓN',
-//   'RADIO', 'ANTENA', 'SEÑAL', 'SATÉLITE', 'ESPACIO', 'PLANETA', 'ESTRELLA', 'GALAXIA', 'ASTEROIDE', 'COMETA',
-//   'TIEMPO', 'CLIMA', 'TEMPERATURA', 'HUMEDAD', 'PRESIÓN', 'VIENTO', 'TORMENTA', 'HURACÁN', 'TORNADO', 'NEVADA',
-//   'GRANIZO', 'ESCARCHA', 'HIELO', 'NIEVE', 'CALOR', 'FRÍO', 'PRIMAVERA', 'VERANO', 'OTOÑO', 'INVIERNO',
-//   'ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO', 'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE',
-//   'NOVIEMBRE', 'DICIEMBRE', 'DÍA', 'SEMANA', 'MES', 'AÑO', 'SIGLO', 'MILENIO', 'SEGUNDO', 'MINUTO',
-//   'HORA', 'RELOJ', 'CALENDARIO', 'TIEMPO', 'PASADO', 'PRESENTE', 'FUTURO', 'MAÑANA', 'TARDE', 'NOCHE',
-//   'MADRUGADA', 'ALBA', 'OCASO', 'LUZ', 'SOMBRA', 'OSCURA', 'BRILLO', 'REFLEJO', 'CRISTALINO', 'OPACO', ];
+
 
 @Injectable({ providedIn: 'root' })
 export class SopaService {
   tam: number = 20;
 
-  sopa = Array<Array<string>>(this.tam).fill([]).map(() =>
-    Array<string>(this.tam).fill('')
-  );
+  sopa : string[][] = [];
 
-  inicio = Math.random() * listGrande.length;
   // listaPalabras = [ 'COCHE'];
   // listaPalabras = listaGrande.slice(this.inicio, this.inicio + 10 );
-  listaPalabras = listGrande.slice(this.inicio, this.inicio + 10 );
+  listaPalabras: string[] = [];
   listaBlocked: string[] = [];
 
   terminado = signal(false);
 
+  private inicializarSopa(){
+    this.sopa =  Array<Array<string>>(this.tam).fill([]).map(() =>
+      Array<string>(this.tam).fill(''));
+  }
+
+  private generarNuevaLista(){
+    this.listaPalabras = [];
+    while(this.listaPalabras.length < 1){
+      const inicio = Math.floor (Math.random() * listGrande.length);
+      if(!this.listaPalabras.includes(listGrande[inicio]))
+        this.listaPalabras.push(listGrande[inicio]);
+    }
+  }
+
   generarSopa(): string[][] {
+
+    this.terminado.set(false);
+    this.listaBlocked = [];
+    this.generarNuevaLista();
+    this.inicializarSopa();
 
 
 
     for (let word of this.listaPalabras) {
       let placed = false;
       while (!placed) {
-        const dir = Math.random() > 0.5 ? 'H' : 'V'; // obtengo si va a ser horizontal o verical
+        const dir = Math.random() > 0.66 ? 'H' : Math.random() > 0.5 ? 'V' : 'D'; // obtengo si va a ser horizontal o verical
         const row = Math.floor(Math.random() * this.tam); // obtengo el row de inicio
         const col = Math.floor(Math.random() * this.tam); // obtengo el col de inicio
         if (
@@ -73,6 +65,21 @@ export class SopaService {
           console.log('V -->' , word, ' | ',row ,  ' | ', col, ' | ', );
           for (let i = 0; i < word.length; i++) {
             this.sopa[row + i][col] = word[i].toUpperCase();
+          }
+          placed = true;
+        }
+
+        else if (
+          dir === 'D' && // palabra diagonal
+          row + word.length <= this.tam // no se sale de el tamaño
+          &&
+          col + word.length <= this.tam
+          && !this.isOccuped( row,col,word.length, 'D') // y no está ocupado ya
+
+        ) {
+          console.log('D -->' , word, ' | ',row ,  ' | ', col, ' | ', );
+          for (let i = 0; i < word.length; i++) {
+            this.sopa[row + i][col+i] = word[i].toUpperCase();
           }
           placed = true;
         }
@@ -98,17 +105,23 @@ export class SopaService {
     row: number,
     col: number,
     tamPalabra: number,
-    dir: 'H' | 'V'
+    dir: 'H' | 'V'| 'D'
   ): boolean {
     if (dir === 'H') {
       for (let i = col; i < col + tamPalabra ; i++) {
         if (this.sopa[row][i]) return true;
 
       }
-    } else {
+    } else if( dir === 'V') {
       for (let i = row; i < row + tamPalabra; i++) {
         if (this.sopa[i][col]) return true;
 
+      }
+    }
+
+    else if( dir === 'D') {
+      for (let i = 0; i < tamPalabra; i++) {
+        if (this.sopa[row + i][col + i]) return true;
       }
     }
 

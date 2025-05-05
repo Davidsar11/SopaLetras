@@ -12,8 +12,6 @@ export default class CongratsPageComponent implements AfterViewInit {
   sopaServ = inject(SopaService);
 
   ngAfterViewInit(): void { // cuando entro en congrats, reinicio todo
-    this.sopaServ.terminado.set(false);
-    this.sopaServ.listaBlocked= [];
-    this.sopaServ.generarSopa();
+    // this.sopaServ.terminado.set(false);
   }
 }
