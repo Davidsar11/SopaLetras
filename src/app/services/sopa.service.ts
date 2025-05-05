@@ -24,7 +24,7 @@ export class SopaService {
 
   private generarNuevaLista(){
     this.listaPalabras = [];
-    while(this.listaPalabras.length < 1){
+    while(this.listaPalabras.length < 10){
       const inicio = Math.floor (Math.random() * listGrande.length);
       if(!this.listaPalabras.includes(listGrande[inicio]))
         this.listaPalabras.push(listGrande[inicio]);
