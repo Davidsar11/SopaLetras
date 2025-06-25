@@ -6,7 +6,7 @@ import { listGrande } from '../interface/palabras';
 
 @Injectable({ providedIn: 'root' })
 export class SopaService {
-  tam: number = 20;
+  tam: number = 10;
 
   sopa : string[][] = [];
 
@@ -24,7 +24,7 @@ export class SopaService {
 
   private generarNuevaLista(){
     this.listaPalabras = [];
-    while(this.listaPalabras.length < 10){
+    while(this.listaPalabras.length < 5){
       const inicio = Math.floor (Math.random() * listGrande.length);
       if(!this.listaPalabras.includes(listGrande[inicio]))
         this.listaPalabras.push(listGrande[inicio]);
